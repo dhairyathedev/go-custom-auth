@@ -3,6 +3,7 @@ package main
 import (
 	//"database/sql"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func main() {
@@ -14,8 +15,16 @@ func main() {
 	})
 
 	r.POST("/signup", func(c *gin.Context) {
+		password := []byte("hello@123")
+		hash, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+		if err != nil {
+			c.JSON(500, gin.H{
+				"error": err,
+			})
+		}
 		c.JSON(200, gin.H{
 			"message": "Successfully Signed up!!!",
+			"hash":    hash,
 		})
 	})
 
