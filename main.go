@@ -143,14 +143,12 @@ func login(c *gin.Context, db *sqlx.DB) {
 	}
 
 	accessToken, err := generateJWT(user.ID)
-
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"})
 		return
 	}
 
 	refreshToken, err := generateRefreshToken(user.ID, db)
-
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generating refresh token"})
 		return
@@ -160,7 +158,6 @@ func login(c *gin.Context, db *sqlx.DB) {
 		"access_token":  accessToken,
 		"refresh_token": refreshToken,
 	})
-
 }
 
 func generateJWT(userID string) (string, error) {
