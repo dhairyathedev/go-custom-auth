@@ -4,12 +4,14 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -36,7 +38,7 @@ type Session struct {
 }
 
 var (
-	jwtSecret     = []byte("a1ea4e24f988988483046a75df5f1f5e973aa0889cbfe2dc7c64613cf32f1ae1158bd8cedd4f3a9074827a9779860bc6a197917e1c5c874ff869cdb32344658679b25f469e7e5f9a5d09964a58cae6659c1a38180af3ca833533a0a5521f7d3d63341c9ef9df4c25b40329dc6cabe0f214b56daa060246e4516a63aacdde1d1525e47c138be284f9243770b0eb5f0af9be01327443d62ab819a0f4998a20e7b9ab8960218a651dc8e107207338ae1f2bf957c18519d70733b84590edef230526af02faa72f29dd58ff2c822f34c6734119232c836ebafbb028797b8a4368b0125f5e67fb0dee67d6619a982f499957c2a3e83bdebd5961e8f06026624d08e076")
+	jwtSecret     = []byte(os.Getenv("JWT_SECRET"))
 	tokenExpiry   = 15 * time.Minute
 	refreshExpiry = 7 * 24 * time.Hour
 )
